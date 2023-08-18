@@ -1,0 +1,174 @@
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+
+  <!-- Title Page Student -->
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">EDIT STUDENT</h1>
+  </div>
+
+  <!-- Title Edit Student -->
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
+      <h4>Form Edit Student</h4>
+      <div>
+        <a href="/student/edit/<%= student.name %>" type="button" class="btn btn-sm btn-outline-primary text-center">Reset<i class="bi bi-arrow-right-square ms-2"></i></a>
+        <a href="/student" type="button" class="btn btn-sm btn-outline-primary text-center">Back<i class="bi bi-arrow-right-square ms-2"></i></a>
+      </div>
+  </div>
+
+  <!-- Alert Error Form -->
+  <% if (typeof errors != 'undefined') { %>
+    <div class="alert alert-danger fw-bold" role="alert">
+      <ul>
+        <% errors.forEach(error => { %>
+          <li><%= error.msg %> </li>
+        <% }) %>
+      </ul>
+    </div>
+  <% } %>
+
+  <!-- Form add student -->
+  <form method="POST" action="/student?_method=PUT" enctype="multipart/form-data">
+    <input type="hidden" name="_id" value="<%= student._id %>">
+    <input type="hidden" name="oldName" value="<%= student.oldName || student.name %>">
+
+
+    <div class="row">
+      
+      <!-- Left Form -->
+      <div class="col-6">
+        <!-- Name -->
+        <div class="mb-3">
+          <label for="name" class="form-label">Name</label>
+          <input type="text" class="form-control" id="name" name="name" required value="<%= student.name %>">
+        </div>
+
+        <!-- Status -->
+        <label for="status" class="form-label">Status</label>       
+        <select class="form-select mb-3" aria-label="Default select example" name="status">
+          <option value="Active" <%= student.status === "Active" ? "selected" : "" %>>Acticve</option>
+          <option value="Inactive" <%= student.status === "Inactive" ? "selected" : "" %>>Inactive</option>
+          <option value="Graduate" <%= student.status === "Graduate" ? "selected" : "" %>>Graduate</option>
+        </select>
+
+        <!-- No ID -->
+        <div class="mb-3">
+          <label for="noID" class="form-label">No ID</label>
+          <input type="text" class="form-control" id="noID" name="noID" required value="<%= student.noID %>">
+        </div>
+
+        <!-- Department -->
+        <label for="department" class="form-label">Department</label>
+        <select class="form-select mb-3" aria-label="Default select example" name="department">
+          <option value="Mechanical Engineering" <%= student.department === "Mechanical Engineering" ? "selected" : "" %>>Mechanical Engieering</option>
+          <option value="Electrical Engineering" <%= student.department === "Electrical Engineering" ? "selected" : "" %>>Electrical Engineering</option>
+          <option value="Industrial Engineering" <%= student.department === "Industrial Engineering" ? "selected" : "" %>>Industrial Engineering</option>
+          <option value="Civil Engineering" <%= student.department === "Civil Engineering" ? "selected" : "" %> >Civil Engineering</option>
+          <option value="Informatic Engineering" <%= student.department === "Informatic Engineering" ? "selected" : "" %>>Informatic Engineering</option>
+        </select>
+
+        <!-- Semester -->
+        <div class="mb-3">
+          <label for="noID" class="form-label">Semester</label>
+          <input type="text" class="form-control" id="semester" name="semester" required value="<%= student.semester %>">
+        </div>
+
+        <!-- Email -->
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" class="form-control" id="email" name="email" required value="<%= student.email %>">
+        </div>
+      </div>
+
+      <!-- Right Form -->
+      <div class="col-6">
+        <!-- Birth -->
+        <div class="mb-3">
+          <label for="birth" class="form-label">Birth</label>
+          <input type="text" class="form-control" id="birth" name="birth" required value="<%= student.birth %>" required>
+        </div>
+
+        <!-- Genre -->
+        <label for="genre" class="form-label">Genre</label>       
+        <select class="form-select mb-3" aria-label="Default select example" name="genre">
+          <option value="Man" <%= student.genre === "Man" ? "selected" : "" %>>Man</option>
+          <option value="Female" <%= student.genre === "Female" ? "selected" : "" %>>Female</option>
+        </select>
+
+        <!-- No Phone -->
+        <div class="mb-3">
+          <label for="noPhone" class="form-label">No Phone</label>
+          <input type="noPhone" class="form-control" id="noPhone" name="noPhone" required value="<%= student.noPhone %>">
+        </div>
+
+        <!-- Address -->
+        <div class="mb-3">
+          <label for="address" class="form-label">Address</label>
+          <input type="text" class="form-control" id="address" name="address" required value="<%= student.address %>">
+        </div>
+
+        <!-- Image -->
+        <label for="image" class="form-label">Photo</label> 
+
+        <% if (student.image) { %>
+          <img src="/img/<%= student.image %>" alt="<%= student.name %>" width="100px" class="img-fluid img-preview d-block">
+        <% } else { %>
+          <img class="img-fluid img-preview" width="100px" >
+        <% } %>
+        <div class="input-group mb-3">
+          <input type="hidden" name="oldImage" value="<%= student.image %>" >
+          <input type="file" class="form-control" id="image" name="image" onchange="previewImage()">
+        </div>
+
+        <!-- Media Social -->
+        <div class="row">
+          <div class="col-6">
+            <!-- Github -->
+            <div class="mb-3">
+              <label for="github" class="form-label">Github</label>
+              <input type="text" class="form-control" id="github" name="github" value="<%= student.github %>">
+            </div>
+
+            <!-- Twitter -->
+            <div class="mb-3">
+              <label for="twitter" class="form-label">Twitter</label>
+              <input type="text" class="form-control" id="twitter" name="twitter" value="<%= student.twitter %>">
+            </div>
+          </div>
+
+          <div class="col-6">
+            <!-- Instagram -->
+            <div class="mb-3">
+              <label for="instagram" class="form-label">Instagram</label>
+              <input type="text" class="form-control" id="instagram" name="instagram" value="<%= student.instagram %>">
+            </div>
+
+            <!-- Facebook -->
+            <div class="mb-3">
+              <label for="facebook" class="form-label">Facebook</label>
+              <input type="text" class="form-control" id="facebook" name="facebook" value="<%= student.facebook %>">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Button Submit -->
+      <button type="submit" class="btn btn-primary">Update Data</button>
+
+    </div>
+  </form>
+</main>
+<script>
+  function previewImage() {
+    const image = document.querySelector('#image');
+    const imgPreview = document.querySelector('.img-preview');
+
+    imgPreview.style.display = 'block';
+
+    const oFReader = new FileReader();
+    oFReader.readAsDataURL(image.files[0]);
+
+    oFReader.onload = function(oFREvent) {
+      imgPreview.src = oFREvent.target.result;
+    }
+  }
+</script>
+

@@ -1,0 +1,124 @@
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">STAFF</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+      <div class="btn-group me-2">
+        <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+        <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+      </div>
+      <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+        <span data-feather="calendar"></span>
+        Department
+      </button>
+    </div>
+  </div>
+
+  <div class="row mb-4">
+    <div class="col-3">
+      <div class="label d-flex flex-wrap mx-3 rounded-2 text-white align-middle bg-dark bg-gradient">
+        <div class="icon-label ms-2"><i class="bi bi-people fs-1 mx-1"></i></div>
+        <div class="data p-2">
+          <h6 class="mb-0">TOTAL STAFF</h6>
+          <h6 class="mb-0"><%= staffTotal %> Staff</h6>
+        </div>
+      </div>
+    </div>
+    <div class="col-3">
+      <div class="label d-flex flex-wrap mx-3 rounded-2 text-white align-middle bg-success bg-gradient">
+        <div class="icon-label ms-2"><i class="bi bi-people fs-1 mx-1"></i></div>
+        <div class="data p-2">
+          <h6 class="mb-0">REGULER</h6>
+          <h6 class="mb-0"><%= staffReguler %> Staff</h6>
+        </div>
+      </div>
+    </div>
+    <div class="col-3">
+      <div class="label d-flex flex-wrap mx-3 rounded-2 text-white align-middle bg-danger bg-gradient">
+        <div class="icon-label ms-2"><i class="bi bi-people fs-1 mx-1"></i></div>
+        <div class="data p-2">
+          <h6 class="mb-0">TEMPORARY</h6>
+          <h6 class="mb-0"><%= staffTemporary %> Staff</h6>
+        </div>
+      </div>
+    </div>
+    <div class="col-3">
+      <div class="label d-flex flex-wrap mx-3 rounded-2 text-white align-middle bg-primary bg-gradient">
+        <div class="icon-label ms-2"><i class="bi bi-people fs-1 mx-1"></i></div>
+        <div class="data p-2">
+          <h6 class="mb-0">PART TIME</h6>
+          <h6 class="mb-0"><%= staffParttime %> Staff</h6>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Title Row / Titile Tabel Staff -->
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
+    <h4>Staff List</h4>
+    <a href="/staff/add" type="button" class="btn btn-sm btn-outline-primary">Add New Staff</a>
+  </div>
+
+  <% if (msg.length !== 0) { %>
+    <div class="alert alert-success fw-bold" role="alert">
+      <%= msg %>
+    </div>
+  <% } %>
+
+  <!-- Tabel Student -->
+  <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
+          <th scope="col">No ID</th>
+          <th scope="col">Department</th>
+          <th scope="col">Status</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if (staffs.length === 0) { %>
+          <tr>
+            <td colspan="6">
+              <div class="alert alert-danger fw-bold" role="alert">
+                Student not found!!
+              </div>
+            </td>
+          </tr>
+        <% } %>
+        <% staffs.forEach((staff, i) => { i++ %>
+          <tr>
+            <th scope="row"><%= i++ %></th>
+            <td>
+              <div class="d-flex align-items-center">
+                <% if(staff.image == null) { %>
+                  <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="<%= staff.name %>" class="me-2 rounded-circle" width="30">
+                  <div class="mt-3">
+                <% } else { %> 
+                  <img src="/img/<%= staff.image %>" alt="<%= staff.name %>" width="30" class="me-2 rounded-circle">
+                <% } %> 
+                <%= staff.name %>
+              </div>
+            </td>
+            <td><%= staff.noID %></td>
+            <td><%= staff.department %></td>
+            <td><%= staff.status %></td>
+            <td>
+                <a href="/staff/<%= staff.name %>" class="btn btn-success badge rounded-pill"><i class="bi bi-file-earmark-text me-1"></i>Detail</a>
+                <a href="/staff/edit/<%= staff.name %>" class="btn btn-primary badge rounded-pill"><i class="bi bi-pencil me-1"></i>Edit</a>
+
+                <form action="/staff?_method=DELETE" method="POST" class="d-inline">
+                  <input type="hidden" name="_id" value="<%= staff._id %>">
+                  <button type="submit" class="btn btn-danger badge rounded-pill" onclick="return confirm('Are you sure delete <%= staff.name %>?')"><i class="bi bi-x-circle me-1"></i>Delete</button>
+
+                  <!-- <a class="btn btn-danger badge rounded-pill" onclick="return confirm('Are you sure delete <%= staff.name %>?')"><i class="bi bi-x-circle me-1"></i>Delete</a> -->
+                </form>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+</main>
+
+
+

@@ -1,0 +1,49 @@
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+      <h1 class="h2">DASHBOARD</h1>
+    </div>
+    <div class="row">
+        <div class="col text-center">
+            <h1 class="display-4">Welcome In Admin Campus Website</h1>
+            <p class="lead">Status Right Now</p>
+
+            <div class="container">
+              <div class="row">
+                <div class="col-md-3">
+                  <div class="card-counter primary">
+                    <i class="fa fa-code-fork"></i>
+                    <span class="count-numbers"><%= studentTotal %></span>
+                    <span class="count-name">student</span>
+                  </div>
+                </div>
+
+                <div class="col-md-3">
+                  <div class="card-counter danger">
+                    <i class="fa fa-ticket"></i>
+                    <span class="count-numbers"><%= staffTotal %></span>
+                    <span class="count-name">Staff</span>
+                  </div>
+                </div>
+
+                <div class="col-md-3">
+                  <div class="card-counter success">
+                    <i class="fa fa-database"></i>
+                    <span class="count-numbers">6</span>
+                    <span class="count-name">Department</span>
+                  </div>
+                </div>
+
+                <div class="col-md-3">
+                  <div class="card-counter info">
+                    <i class="fa fa-users"></i>
+                    <span class="count-numbers"><%= studentGraduate %></span>
+                    <span class="count-name">Student Graduate</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+
